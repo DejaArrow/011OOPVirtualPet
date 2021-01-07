@@ -8,6 +8,8 @@ namespace VirtualPet
        public Shop()
        {
            Items.Add(new CatFood());
+           Items.Add(new CatToy());
+           Items.Add(new CatMedicine());
        }
 
     }

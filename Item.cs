@@ -17,7 +17,8 @@ namespace VirtualPet
 
         
 
-        public Item (string name, int price, string description, int value, int uses) {
+        public Item (string name, int price, string description, int value, int uses) 
+        {
             Name = name;
             Price = price;
             Description = description;

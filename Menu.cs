@@ -8,7 +8,7 @@ namespace VirtualPet
     {
         public void Display()
         {
-            Console.WriteLine("\nPlease pick an action.");
+            Console.WriteLine("Please pick an action.");
             Console.WriteLine("1 - Feed");
             Console.WriteLine("2 - Play");
             Console.WriteLine("3 - Medicate");

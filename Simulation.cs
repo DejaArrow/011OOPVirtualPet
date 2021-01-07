@@ -190,6 +190,8 @@ namespace VirtualPet
         {
             IPetItem item = player.Take(option);
             pet1.Feed(item);
+            pet1.Play(item);
+            pet1.Medicate(item);
             appState = AppState.Running;
         }
 

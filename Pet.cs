@@ -83,6 +83,31 @@ namespace VirtualPet
 
             
         }
+        public void Play(IPetItem toy)
+        {
+            if (toy is IToy)
+            {
+                var realToy = (IToy) toy;
+                mood += realToy.ToyValue;
+            }
+            else{
+                Console.WriteLine($"{toy.Name} is not a toy.");
+            }
+
+            toy.Uses --;
+        }
+
+        public void Medicate(IPetItem medicine)
+        {
+            if (medicine is IMedicine)
+            {
+                var realMedicine = (IMedicine) medicine;
+                health += realMedicine.MedicineValue;
+            }
+            else{
+                Console.WriteLine($"{medicine.Name} will not help.");
+            }
+        }
 
 
         
