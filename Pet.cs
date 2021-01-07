@@ -1,5 +1,5 @@
 using System;
-using VirtualPet;
+using System.Threading;
 
 namespace VirtualPet
 {
@@ -19,6 +19,8 @@ namespace VirtualPet
 
         public double prefTemp;
 
+        protected Room room;
+
         int startCount;
         int count;
         bool active = true;
@@ -26,7 +28,7 @@ namespace VirtualPet
 
            
         
-        public Pet( double hunger, double mood, double health, double cleanliness, double energy, double prefTemp)
+        public Pet( double hunger, double mood, double health, double cleanliness, double energy, double prefTemp, Room room)
         {
             this.hunger = hunger;
             this.mood = mood;
@@ -34,6 +36,8 @@ namespace VirtualPet
             this.cleanliness = cleanliness;
             this.energy = energy;
             this.prefTemp = prefTemp;
+            this.room = room;
+
         }
         public void Initialise()
         {
@@ -49,20 +53,68 @@ namespace VirtualPet
             Console.WriteLine($"Health: {health}");
             Console.WriteLine($"Cleanliness: {cleanliness}");
             Console.WriteLine($"Energy: {energy}");
+            Console.WriteLine($"Room is currently {room.RoomTemp} degrees");
         }
 
         public void Update()
         {
-            hunger += 1;
-            mood -= 1;
-            cleanliness -= 1;
-            energy -= 1;
-            double healthStep = 0.5;
-            if (hunger > 70)
-            { 
-                healthStep +=0.5;
+            if( hunger <= 99)
+            {
+                hunger += 1;
             }
-            health -= healthStep;
+
+            if (mood > 0)
+           {
+                mood -= 1;
+           }
+
+           if(cleanliness > 0)
+           {
+            cleanliness -= 1;
+           }
+
+           if (energy > 10 )
+           {
+            energy -= 1;
+           }
+           else if (health > 0)
+           {
+               Console.WriteLine("ZzZzZz...");
+               Thread.Sleep(2000);
+               energy += 70;
+           }
+                         
+           
+            if (health > 0)
+            {
+                double healthStep = 0;
+                 if (hunger > 70)
+                 {
+                     healthStep +=0.5;
+                 }
+
+                if (room.RoomTemp < (prefTemp - 2))
+                {
+                    Console.WriteLine("It's too cold!");
+                    healthStep +=0.5;
+                }
+                else if (room.RoomTemp > (prefTemp +2))
+                {
+                    Console.WriteLine("It's too hot!");
+                    healthStep +=0.5;
+                }
+                health -= healthStep;
+                           
+            }
+
+             if(health == 0)
+            {
+                Die ();
+            }
+            
+                                   
+        
+            
         }
 
         
@@ -107,6 +159,23 @@ namespace VirtualPet
             else{
                 Console.WriteLine($"{medicine.Name} will not help.");
             }
+        }
+
+        public void Clean()
+        {
+            Console.WriteLine("Litter Scooped!");
+            cleanliness += 50;
+        }
+
+        private void Die()
+        {
+            hunger = 0;
+            mood = 0;
+            health = 0;
+            energy = 0;
+
+            Console.WriteLine("++ Oh no! ++");
+
         }
 
 

@@ -14,7 +14,8 @@ namespace VirtualPet
             Console.WriteLine("3 - Medicate");
             Console.WriteLine("4 - Shop");
             Console.WriteLine("5 - Clean");
-            Console.WriteLine("6 - Reset Temperature");
+            Console.WriteLine("6 - Thermostat Up");
+            Console.WriteLine("7 - Thermostat Down");
             
 
         }

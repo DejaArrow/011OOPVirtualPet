@@ -24,6 +24,7 @@ namespace VirtualPet
         Feed,
         Play,
         Medicate
+        
 
     }
 
@@ -33,7 +34,8 @@ namespace VirtualPet
         AppState appState = AppState.Running;
         Counter counter = new Counter(1000);
         public int delayms = 1;
-        Pet pet1 = new Cat (50, 50, 50, 50, 50, 17);
+        Room room = new Room(21);
+        Pet pet1;
         PlayerInventory player = new PlayerInventory(20);
         Shop shop = new Shop();
 
@@ -43,7 +45,7 @@ namespace VirtualPet
 
         public Simulation()
         {
-            
+           pet1  = new Cat (50, 50, 50, 50, 50, 17, room);
         }
 
         public void Run()
@@ -166,6 +168,12 @@ namespace VirtualPet
                 break;
                 case 4 : appState = AppState.Shop;
                 break;
+                case 5 : pet1.Clean();
+                break;
+                case 6 : room.ThermostatUp();
+                break;
+                case 7 : room.ThermostatDown();
+                break;
                 
             }
         }
@@ -189,9 +197,20 @@ namespace VirtualPet
         private void handleItem(int option)
         {
             IPetItem item = player.Take(option);
-            pet1.Feed(item);
-            pet1.Play(item);
-            pet1.Medicate(item);
+            switch (optionSelected)
+            {
+                case PlayerAction.Feed:
+                pet1.Feed(item);
+                break;
+                case PlayerAction.Play:
+                pet1.Play(item);
+                break;
+                case PlayerAction.Medicate:
+                pet1.Medicate(item);
+                break;
+
+            }          
+            
             appState = AppState.Running;
         }
 
@@ -199,7 +218,8 @@ namespace VirtualPet
         {
             
             pet1.Update();
-            //player.Update();
+            player.Update();
+            room.Update();
         }
 
         public void Display()

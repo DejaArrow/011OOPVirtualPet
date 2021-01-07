@@ -4,11 +4,40 @@ namespace VirtualPet
 {
     class Room
     {
-        public int roomTemp;
+        const double AMBIENT_TEMP = 18.60;
+        
+        public double RoomTemp{get; private set;}
 
-            public void Temp (int currentTemp)
+            public Room (double currentTemp)
              {
-                roomTemp = currentTemp;
+                RoomTemp = currentTemp; 
              }
+
+        public void ThermostatUp()
+        {
+            RoomTemp += 2;
+            Console.WriteLine($"Temperature is now {RoomTemp}");
+        }
+
+        public void ThermostatDown()
+        {
+            RoomTemp -= 2;
+             Console.WriteLine($"Temperature is now {RoomTemp}");
+        }
+
+        public void Update()
+        {
+            if(RoomTemp > AMBIENT_TEMP)
+            {
+            RoomTemp -= 0.01;
+            }
+            else
+            {
+                RoomTemp += 0.01;
+            }
+        }
+    
     }
+
+    
 }
