@@ -14,16 +14,7 @@ namespace VirtualPet
             startCount = startValue;
         }
 
-        public void Display()
-        {
-            if (active)
-            {
-                Console.SetCursorPosition(5, 4);
-                Console.Write(TickSpeed);
-                Console.SetCursorPosition(5, 5);
-                Console.Write(count);
-            }
-        }
+       
 
         public void Initialise()
         {

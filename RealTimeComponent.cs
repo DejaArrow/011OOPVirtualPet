@@ -6,7 +6,7 @@ namespace VirtualPet
     {
         void Initialise();
         void Update();
-        void Display();
+        
 
     }
 }

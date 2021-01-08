@@ -16,13 +16,13 @@ namespace VirtualPet
         public void ThermostatUp()
         {
             RoomTemp += 2;
-            Console.WriteLine($"Temperature is now {RoomTemp}");
+            
         }
 
         public void ThermostatDown()
         {
             RoomTemp -= 2;
-             Console.WriteLine($"Temperature is now {RoomTemp}");
+           
         }
 
         public void Update()

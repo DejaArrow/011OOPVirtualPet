@@ -108,6 +108,11 @@ namespace VirtualPet
                 {
                     healthStep +=0.5;
                 }
+
+                if (cleanliness < 15)
+                {
+                    healthStep +=0.5;
+                }
                 
                 health -= healthStep;
                            
@@ -147,6 +152,7 @@ namespace VirtualPet
             {
                 var realToy = (IToy) toy;
                 mood += realToy.ToyValue;
+                energy -= 10;
                 if (mood > 100)
                 {
                     mood = 100;
@@ -166,6 +172,7 @@ namespace VirtualPet
             {
                 var realMedicine = (IMedicine) medicine;
                 health += realMedicine.MedicineValue;
+                
                 if (health > 100)
                 {
                     health = 100;
@@ -183,7 +190,7 @@ namespace VirtualPet
         {
             if (cleanliness < 100)
             {
-               Console.WriteLine("Litter Scooped!");
+               
                cleanliness += 50;
                if (cleanliness >100)
              {
