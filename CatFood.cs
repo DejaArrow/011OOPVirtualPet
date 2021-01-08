@@ -14,5 +14,12 @@ namespace VirtualPet
            get{return this.Value;}
            set{this.Value = value;}     
         }
+
+        public string Species
+        {
+            get{return "Cat";}
+        }
     }
+
+    
 }

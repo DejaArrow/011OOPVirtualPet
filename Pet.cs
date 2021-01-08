@@ -47,13 +47,24 @@ namespace VirtualPet
         }
         public void Display()
         {
+            string tooHot = "";
+            int temp = TempteratureRange();
+            if (temp < 0)
+            {
+                tooHot = " - too cold!";
+            }
+            else if (temp > 0)
+            {
+                tooHot = " - too Hot!";
+            }
+
             Console.WriteLine($"{species}");
             Console.WriteLine($"Hunger: {hunger}");
             Console.WriteLine($"Mood: {mood}");
             Console.WriteLine($"Health: {health}");
             Console.WriteLine($"Cleanliness: {cleanliness}");
             Console.WriteLine($"Energy: {energy}");
-            Console.WriteLine($"Room is currently {room.RoomTemp} degrees");
+            Console.WriteLine($"Room is currently {room.RoomTemp:N2} degrees {tooHot}");
         }
 
         public void Update()
@@ -93,35 +104,26 @@ namespace VirtualPet
                      healthStep +=0.5;
                  }
 
-                if (room.RoomTemp < (prefTemp - 2))
+                if (TempteratureRange() != 0)
                 {
-                    Console.WriteLine("It's too cold!");
                     healthStep +=0.5;
                 }
-                else if (room.RoomTemp > (prefTemp +2))
-                {
-                    Console.WriteLine("It's too hot!");
-                    healthStep +=0.5;
-                }
+                
                 health -= healthStep;
                            
             }
 
-             if(health == 0)
+             if(health <= 0)
             {
                 Die ();
-            }
-            
-                                   
-        
-            
+            }                                              
+                    
         }
-
-        
+       
 
          public void Feed(IPetItem food) 
         {
-            if (food is IFood)
+            if (food is IFood && food.Species == this.species)
             {
                 var realFood = (IFood) food;
                 hunger -= realFood.FoodValue;
@@ -155,10 +157,17 @@ namespace VirtualPet
             {
                 var realMedicine = (IMedicine) medicine;
                 health += realMedicine.MedicineValue;
+                if (health > 100)
+                {
+                    health = 100;
+                }
             }
             else{
                 Console.WriteLine($"{medicine.Name} will not help.");
             }
+            medicine.Uses --;
+
+            
         }
 
         public void Clean()
@@ -177,6 +186,26 @@ namespace VirtualPet
             Console.WriteLine("++ Oh no! ++");
 
         }
+
+        private int TempteratureRange()
+        {
+            int result =0;
+
+             if (room.RoomTemp < (prefTemp - 2))
+                {
+                    result = -1;
+                    
+
+                }
+                else if (room.RoomTemp > (prefTemp +2))
+                {
+                    result = 1;
+                }
+
+            return result;
+               
+        }
+
 
 
         

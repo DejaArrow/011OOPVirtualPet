@@ -2,8 +2,9 @@ using System;
 
 namespace VirtualPet
 {
-    class Item : IPetItem
+    abstract class Item : IPetItem
     {
+        public abstract string Species {get;}
         
         public string Name {get; set;}
 
@@ -24,6 +25,11 @@ namespace VirtualPet
             Description = description;
             Value = value;
             Uses = uses;
+        }
+
+        public IPetItem Clone()
+        {
+            return (IPetItem) this.MemberwiseClone();
         }
     }
     

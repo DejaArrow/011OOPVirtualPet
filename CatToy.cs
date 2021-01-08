@@ -4,7 +4,7 @@ namespace VirtualPet
 {
     class CatToy : Item, IToy
     {
-        public CatToy() : base( "Laser Pointer", 7, "Elusive Red Dot", 20, 15)
+        public CatToy(string name, int price, string description, int value, int uses) : base(name, price, description, value, uses)
         {
            
         }
@@ -13,6 +13,11 @@ namespace VirtualPet
         {
            get{return this.Value;}
            set{this.Value = value;}     
+        }
+
+         public string Species
+        {
+            get{return "Cat";}
         }
     }
 }
