@@ -108,7 +108,7 @@ namespace VirtualPet
             {
                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
                 
-                
+              
                 switch(keyPressed.Key)
                 {
 
@@ -123,6 +123,10 @@ namespace VirtualPet
                     case ConsoleKey.X : appState = AppState.Running;
                     break;
                 }
+                
+                
+                
+                
                 if (Char.IsNumber(keyPressed.KeyChar))
                 {
                     int option = Convert.ToInt32( Char.GetNumericValue(keyPressed.KeyChar));
@@ -162,17 +166,25 @@ namespace VirtualPet
         }
         private void handlePetChoice(int option)
         {
+            try{
             switch (option)
             {
                 case 1 : pet1 = new Cat (50, 50, 50, 50, 50, 17, room);
+                break;
+                case 2 : pet1 = new Rat (25, 50, 50, 50, 50, 19, room);
                 break;
             }
 
             appState = AppState.Running;
             pet1.Initialise();
+        }   
+             catch (ArgumentOutOfRangeException e) 
+            {
+                Console.WriteLine("Invalid Option");
+            }  
         }
         private void handleMenu(int option)
-        {
+        {   try{
             switch (option)
             {
                 case 1 : appState = AppState.Inventory;
@@ -194,6 +206,10 @@ namespace VirtualPet
                 break;
                 
             }
+            }catch (ArgumentOutOfRangeException e) 
+                {
+                    Console.WriteLine("Invalid Option");
+                }  
         }
 
         private void handleShop(int option)

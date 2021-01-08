@@ -127,6 +127,10 @@ namespace VirtualPet
             {
                 var realFood = (IFood) food;
                 hunger -= realFood.FoodValue;
+                  if (hunger < 0)
+                {
+                    hunger = 0;
+                }
 
             }
             else{
@@ -143,6 +147,11 @@ namespace VirtualPet
             {
                 var realToy = (IToy) toy;
                 mood += realToy.ToyValue;
+                if (mood > 100)
+                {
+                    mood = 100;
+                }
+
             }
             else{
                 Console.WriteLine($"{toy.Name} is not a toy.");
@@ -172,8 +181,16 @@ namespace VirtualPet
 
         public void Clean()
         {
-            Console.WriteLine("Litter Scooped!");
-            cleanliness += 50;
+            if (cleanliness < 100)
+            {
+               Console.WriteLine("Litter Scooped!");
+               cleanliness += 50;
+               if (cleanliness >100)
+             {
+                cleanliness = 100;
+             }
+            }
+       
         }
 
         private void Die()
@@ -184,6 +201,7 @@ namespace VirtualPet
             energy = 0;
 
             Console.WriteLine("++ Oh no! ++");
+            Console.WriteLine("++Please 'R' to  start again.++");
 
         }
 

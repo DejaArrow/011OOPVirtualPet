@@ -4,7 +4,7 @@ namespace VirtualPet
 {
     class CatMedicine: Item, IMedicine
     {   
-         public CatMedicine() : base("Cat Medicine", 5, "Heal 'em up!", 50, 1 )
+         public CatMedicine(string name, int price, string description, int value, int uses) : base(name, price, description, value, uses)
         {
             
         }
@@ -15,7 +15,7 @@ namespace VirtualPet
            set{this.Value = value;}     
         }
 
-         public string Species
+          public override string Species
         {
             get{return "Cat";}
         }

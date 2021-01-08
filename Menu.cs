@@ -11,6 +11,7 @@ namespace VirtualPet
             Console.WriteLine("---Welcome!---");
             Console.WriteLine("Choose your Pet: ");
             Console.WriteLine("1 - *Cat*");
+            Console.WriteLine("2 - *Rat*");
         }
 
         public void Display()

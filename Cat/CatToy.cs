@@ -15,7 +15,7 @@ namespace VirtualPet
            set{this.Value = value;}     
         }
 
-         public string Species
+         public override string Species
         {
             get{return "Cat";}
         }

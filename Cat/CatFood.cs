@@ -4,7 +4,7 @@ namespace VirtualPet
 {
     class CatFood : Item, IFood 
     {
-        public CatFood() : base("Whiskas", 5, "Poultry Selection", 50, 12 )
+        public CatFood(string name, int price, string description, int value, int uses) : base(name, price, description, value, uses)
         {
             
         }
@@ -15,7 +15,7 @@ namespace VirtualPet
            set{this.Value = value;}     
         }
 
-        public string Species
+         public override string Species
         {
             get{return "Cat";}
         }
