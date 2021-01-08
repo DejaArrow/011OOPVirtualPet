@@ -6,6 +6,13 @@ namespace VirtualPet
 {
     class Menu
     {
+        public void PetMenu()
+        {
+            Console.WriteLine("---Welcome!---");
+            Console.WriteLine("Choose your Pet: ");
+            Console.WriteLine("1 - *Cat*");
+        }
+
         public void Display()
         {
             Console.WriteLine("Please pick an action.");

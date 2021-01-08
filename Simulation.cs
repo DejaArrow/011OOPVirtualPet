@@ -6,6 +6,7 @@ namespace VirtualPet
 
     public enum AppState
     {
+        Begin,
         Running,
         Help,
         Paused,
@@ -14,6 +15,8 @@ namespace VirtualPet
        
         Shop,
         Inventory
+
+       
 
 
     }
@@ -31,7 +34,7 @@ namespace VirtualPet
     class Simulation : RealTimeComponent
     {
         //private bool appRunning = true;
-        AppState appState = AppState.Running;
+        AppState appState = AppState.Begin;
         Counter counter = new Counter(1000);
         public int delayms = 1;
         Room room = new Room(21);
@@ -45,7 +48,7 @@ namespace VirtualPet
 
         public Simulation()
         {
-           pet1  = new Cat (50, 50, 50, 50, 50, 17, room);
+          
         }
 
         public void Run()
@@ -59,6 +62,9 @@ namespace VirtualPet
 
                 switch (appState)
                 {
+                    case AppState.Begin:
+                    menu.PetMenu();
+                    break;
                     case AppState.Running:
                         Update();
                         Display();
@@ -92,7 +98,7 @@ namespace VirtualPet
             Console.CursorVisible = false;
             Console.Clear();
             counter.Initialise();
-            pet1.Initialise();
+            
             
         }
 
@@ -108,7 +114,7 @@ namespace VirtualPet
 
                     case ConsoleKey.Escape: appState = AppState.Exiting;
                     break;
-                    case ConsoleKey.R: Initialise();
+                    case ConsoleKey.R: appState = AppState.Begin;
                     break;
                     case ConsoleKey.H: appState = AppState.Help;
                     break;
@@ -128,6 +134,8 @@ namespace VirtualPet
                         case AppState.Shop: handleShop(option);
                         break;
                         case AppState.Inventory: handleItem(option);
+                        break;
+                        case AppState.Begin : handlePetChoice(option);
                         break;
 
 
@@ -152,7 +160,17 @@ namespace VirtualPet
                         appState = AppState.Running;
                     }
         }
+        private void handlePetChoice(int option)
+        {
+            switch (option)
+            {
+                case 1 : pet1 = new Cat (50, 50, 50, 50, 50, 17, room);
+                break;
+            }
 
+            appState = AppState.Running;
+            pet1.Initialise();
+        }
         private void handleMenu(int option)
         {
             switch (option)
@@ -196,6 +214,7 @@ namespace VirtualPet
 
         private void handleItem(int option)
         {
+            try {
             IPetItem item = player.Take(option);
             switch (optionSelected)
             {
@@ -209,7 +228,11 @@ namespace VirtualPet
                 pet1.Medicate(item);
                 break;
 
-            }          
+            } 
+            } catch (ArgumentOutOfRangeException e) 
+            {
+                Console.WriteLine("Invalid Option");
+            }         
             
             appState = AppState.Running;
         }
